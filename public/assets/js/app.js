@@ -1,49 +1,68 @@
-const flipBook = (book, buttonsContainer) => {
-  const pages = book.children
-  const buttons = buttonsContainer.children
+const flipBook = book => {
+  const bookBody = book.querySelector('div.flip-cards-body')
+  const pages = Array.from(bookBody.querySelectorAll('div[data-page]'))
 
-  // listen for button clicks
-  buttonsContainer.onclick = e => {
-    e.preventDefault()
-    const { target } = e
+  const flipPage = pageToFlip => {
+    const [page] = pages.filter(page => page.dataset.page === pageToFlip)
 
-    if (target.matches('button')) {
-      const buttonIndex = Array.prototype.indexOf.call(buttons, target)
-      setButtonActive(buttonIndex)
-      flipPage(buttonIndex)
+    if (!page) {
+      // unflip all
+      for (const i in pages) {
+        flip(pages[i], 'remove')
+      }
+      return
+    }
+
+    const pageIndex = pages.indexOf(page)
+    // unflip all pages after
+    for (let i = pageIndex; i > -1; i--) {
+      flip(pages[i], 'remove')
+    }
+    // flip all pages before
+    for (let i = pageIndex; i < pages.length; i++) {
+      flip(pages[i])
+    }
+    flip(page)
+  }
+
+  const flip = (page, action = 'add') => {
+    if (page) {
+      page.style.setProperty('--active-index', page.dataset.page)
+      page.classList[action]('active')
     }
   }
 
-  const setButtonActive = index => {
-    for (const button of buttons) {
-      button.classList.remove('active')
-    }
-    buttons[index].classList.add('active')
+  flipPage(0)
 
-    // move vertical marker
-    buttonsContainer.style.setProperty('--active-index', index)
-  }
-
-  const flipPage = index => {
-    // todas antes dessa devem ser flipadas
-    for (let i = --index; i > -1; i--) {
-      console.log('ativar :>> ', i)
-      flip(pages[i], i)
-    }
-    // todas depois dessa, devem ser desflipadas
-    for (let i = ++index; i < pages.length; i++) {
-      flip(pages[i], i, 'remove')
-    }
-    flip(pages[index], index)
-  }
-
-  const flip = (page, index, action = 'add') => {
-    page.style.setProperty('--active-index', `${index * 2}deg`)
-    page.classList[action]('active')
+  return {
+    flipPage
   }
 }
 
-flipBook(
-  document.querySelector('div.flip-cards-container'),
-  document.querySelector('div.buttons-container')
-)
+const flipBookOne = flipBook(document.querySelector('div.flip-cards-container'))
+
+const buttonsContainer = document.querySelector('div.buttons-container')
+const buttons = buttonsContainer.children
+// listen for button clicks
+buttonsContainer.onclick = e => {
+  e.preventDefault()
+  const { target } = e
+
+  if (target.matches('button')) {
+    const pageToFlip = target.dataset.flip
+    setButtonActive(target)
+    flipBookOne.flipPage(pageToFlip)
+  }
+}
+
+const setButtonActive = button => {
+  for (const button of buttons) {
+    button.classList.remove('active')
+  }
+
+  button.classList.add('active')
+  const index = Array.prototype.indexOf.call(buttons, button)
+
+  // move vertical marker
+  buttonsContainer.style.setProperty('--active-index', index)
+}

@@ -6,6 +6,11 @@
   --active-index: 0;
 }
 
+*,
+:before:after {
+  box-sizing: border-box;
+}
+
 html {
   height: 100%;
   margin: 0;
@@ -51,10 +56,8 @@ body {
     z-index: 3;
   }
 
-  &:has(button.active) {
-    &::before {
-      border-color: #FF6600;
-    }
+  &::before {
+    border-color: #FF6600;
   }
 
   &::after {
@@ -90,26 +93,33 @@ body {
 .flip-cards-container {
   --container-width: 700px;
   --page-width: calc(var(--container-width)/2);
-  --active-index: 0deg;
   --border-radius: 15px 0 0 15px;
 
   display: flex;
   width: var(--container-width);
   transform-style: preserve-3d;
-  transform: rotateX(10deg);
   perspective: 2000px;
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.06));
+
+  .flip-cards-body {
+    position: relative;
+    transform-style: preserve-3d;
+    width: 100%;
+    transform: rotateX(16deg);
+  }
 
   .page {
     width: var(--page-width);
     height: 100%;
     border-radius: var(--border-radius);
     border: 2px solid #D9D9D9;
+    border-right-width: 1px;
     transition: all .6s ease;
     position: absolute;
     transform-origin: right;
-
     transform-style: preserve-3d;
+    transform: rotateY(180deg);
+    box-shadow: 2px 1px 5px rgba(0, 0, 0, .1);
 
     .page--front-side,
     .page--back-side {
@@ -134,53 +144,20 @@ body {
       transform: rotateY(180deg);
     }
 
-    &.page-1 {
-      z-index: 5;
-      transform: rotateY(4deg);
-    }
-
-    &.page-2 {
-      z-index: 4;
-      transform: rotateY(8deg);
-    }
-
-    &.page-3 {
-      z-index: 3;
-      transform: rotateY(6deg);
-    }
-
-    &.page-4 {
-      z-index: 2;
-      transform: rotateY(4deg);
-    }
-
-    &.page-5 {
-      z-index: 1;
-      transform: rotateY(2deg);
+    &[data-page] {
+      transform: rotateY(calc(167deg + var(--active-index) * 2deg));
     }
 
     &.active {
-      transform: rotateY(calc(180deg - var(--active-index)));
 
-      &.page-1 {
-        z-index: 1;
+      transform: rotateY(0deg);
+
+      &[data-page] {
+        transform: rotateY(calc(-1deg + var(--active-index) * 2deg));
+        z-index: var(--active-index);
       }
 
-      &.page-2 {
-        z-index: 2;
-      }
-
-      &.page-3 {
-        z-index: 3;
-      }
-
-      &.page-4 {
-        z-index: 4;
-      }
-
-      &.page-5 {
-        z-index: 5;
-      }
+      box-shadow: -2px 1px 5px rgba(0, 0, 0, .1);
     }
   }
 }

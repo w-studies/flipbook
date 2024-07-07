@@ -11,61 +11,65 @@
 <body>
   <div class="container display-desktop">
     <div class="buttons-container">
-      <button>Fill Empty Appointment Slots</button>
-      <button>Increased Collections</button>
-      <button>Reduced No-Shows</button>
-      <button>Enhance Call Center Efficiency</button>
-      <button>Save Front-Office Staff Time</button>
+      <button data-flip='1' class='active'>Fill Empty Appointment Slots</button>
+      <button data-flip='2'>Increased Collections</button>
+      <button data-flip='3'>Reduced No-Shows</button>
+      <button data-flip='4'>Enhance Call Center Efficiency</button>
+      <button data-flip='5'>Save Front-Office Staff Time</button>
     </div>
     <div class="flip-cards-container">
-      <div class="page page-1">
-        <div class="page--front-side">
-          <small>PAGE 1</small>
-          <h1>FRONT SIDE</h1>
+      <div class="flip-cards-body">
+        <div class="page active">
+          <div class="page--front-side">
+            <small>PAGE 1</small>
+            <h1>FRONT SIDE</h1>
+          </div>
         </div>
-        <div class="page--back-side">
-          <small>PAGE 1</small>
-          <h1>BACK SIDE</h1>
+        <div class="page">
+          <div class="page--back-side">
+            <small>PAGE 6</small>
+            <h1>BACK SIDE</h1>
+          </div>
         </div>
-      </div>
-      <div class="page page-2">
-        <div class="page--front-side">
-          <small>PAGE 2</small>
-          <h1>FRONT SIDE</h1>
+        <div class="page" data-page='5'>
+          <div class="page--front-side">
+            <small>PAGE 5</small>
+            <h1>FRONT SIDE</h1>
+          </div>
+          <div class="page--back-side">
+            <small>PAGE 5</small>
+            <h1>BACK SIDE</h1>
+          </div>
         </div>
-        <div class="page--back-side">
-          <small>PAGE 2</small>
-          <h1>BACK SIDE</h1>
+        <div class="page" data-page='4'>
+          <div class="page--front-side">
+            <small>PAGE 4</small>
+            <h1>FRONT SIDE</h1>
+          </div>
+          <div class="page--back-side">
+            <small>PAGE 4</small>
+            <h1>BACK SIDE</h1>
+          </div>
         </div>
-      </div>
-      <div class="page page-3">
-        <div class="page--front-side">
-          <small>PAGE 3</small>
-          <h1>FRONT SIDE</h1>
+        <div class="page" data-page='3'>
+          <div class="page--front-side">
+            <small>PAGE 3</small>
+            <h1>FRONT SIDE</h1>
+          </div>
+          <div class="page--back-side">
+            <small>PAGE 3</small>
+            <h1>BACK SIDE</h1>
+          </div>
         </div>
-        <div class="page--back-side">
-          <small>PAGE 3</small>
-          <h1>BACK SIDE</h1>
-        </div>
-      </div>
-      <div class="page page-4">
-        <div class="page--front-side">
-          <small>PAGE 4</small>
-          <h1>FRONT SIDE</h1>
-        </div>
-        <div class="page--back-side">
-          <small>PAGE 4</small>
-          <h1>BACK SIDE</h1>
-        </div>
-      </div>
-      <div class="page page-5">
-        <div class="page--front-side">
-          <small>PAGE 5</small>
-          <h1>FRONT SIDE</h1>
-        </div>
-        <div class="page--back-side">
-          <small>PAGE 5</small>
-          <h1>BACK SIDE</h1>
+        <div class="page" data-page='2'>
+          <div class="page--front-side">
+            <small>PAGE 2</small>
+            <h1>FRONT SIDE</h1>
+          </div>
+          <div class="page--back-side">
+            <small>PAGE 2</small>
+            <h1>BACK SIDE</h1>
+          </div>
         </div>
       </div>
     </div>
